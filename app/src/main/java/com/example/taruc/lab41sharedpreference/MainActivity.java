@@ -23,28 +23,12 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        //read shared preference file
-        sharedPreferences = getSharedPreferences(getString(R.string.pref_file), MODE_PRIVATE);
-        String name;
-        int gender;  //-1 = default, 1 = male, 0 = female
-        name = sharedPreferences.getString("name", "");
-        gender = sharedPreferences.getInt("gender", -1);
-
-        textViewName.setText(name);
-        if (gender == 0) {
-            imageViewProfile.setImageResource(R.drawable.male);
-        } else if (gender == 1) {
-            imageViewProfile.setImageResource(R.drawable.female);
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        textViewName=findViewById(R.id.TextViewName);
+        imageViewProfile=findViewById(R.id.imageViewProfile);
         setSupportActionBar(toolbar);
     }
 
@@ -70,5 +54,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //read shared preference file
+        sharedPreferences = getSharedPreferences(getString(R.string.pref_file), MODE_PRIVATE);
+        String name;
+        int gender;  //-1 = default, 1 = male, 0 = female
+        name = sharedPreferences.getString("name", "");
+        gender = sharedPreferences.getInt("gender", -1);
+
+        textViewName.setText(name);
+        if (gender == 0) {
+            imageViewProfile.setImageResource(R.drawable.female);
+        } else if (gender == 1) {
+            imageViewProfile.setImageResource(R.drawable.male);
+        }
     }
 }
